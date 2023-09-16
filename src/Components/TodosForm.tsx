@@ -10,7 +10,7 @@ const TodosForm: React.FC<TodosFormsProps> = (props) => {
     const onFinish = () => {
         const todo: Todo = {
             title: form.getFieldValue('title'),
-            Completed: false,
+            completed: false,
         };
         onFormSubmit(todo);
         form.resetFields();
@@ -27,7 +27,7 @@ const TodosForm: React.FC<TodosFormsProps> = (props) => {
                         <Col xs={24} sm={24} md={17} lg={19} xl={20}>
                             <Form.Item
                             name="title"
-                            rules={{{ required: true, message: 'Please enter a title'}}}>
+                            rules={[{ required: true, message: 'Please enter a title'}]}>
                                 <Input placeholder="What do you need to do?" />
                             </Form.Item>    
                         </Col>
@@ -38,8 +38,7 @@ const TodosForm: React.FC<TodosFormsProps> = (props) => {
                         </Col>        
                 </Row>        
         </Form>        
-
-    );
+    )
 
 }
 export default TodosForm;
