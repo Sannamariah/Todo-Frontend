@@ -7,3 +7,8 @@ export const createTodo = (todo: { title: string; completed: boolean;}) => {
         completed: todo.completed
     }).then(response => response.data);
 }
+
+export const loadTodos = () => {
+    return axios.get(baseUrl)
+    .then(response => response.data);
+}

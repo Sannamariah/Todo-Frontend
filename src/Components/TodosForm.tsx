@@ -27,13 +27,13 @@ const TodosForm: React.FC<TodosFormsProps> = (props) => {
                         <Col xs={24} sm={24} md={17} lg={19} xl={20}>
                             <Form.Item
                             name="title"
-                            rules={[{ required: true, message: 'Please enter a title'}]}>
-                                <Input placeholder="What do you need to do?" />
+                            rules={[{ required: true, message: 'Lägg till text'}]}>
+                                <Input placeholder="" />
                             </Form.Item>    
                         </Col>
                         <Col xs={24} sm={24} md={7} lg={5} xl={4}>
                             <Button type="primary" htmlType="submit" block>
-                                <PlusCircleFilled /> Add todo       
+                                <PlusCircleFilled /> Lägg till       
                             </Button>
                         </Col>        
                 </Row>        
