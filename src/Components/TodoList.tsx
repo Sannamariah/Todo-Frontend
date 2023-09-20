@@ -1,14 +1,18 @@
 import { Col, Layout, message, Row, Tabs } from "antd";
-import { createTodo } from '../services/todoServices';
+import { createTodo, loadTodos } from '../services/todoServices';
 import { Todo } from "./models/Todo";
 import { useCallback, useEffect, useState } from "react";
 import TodosForm from "./TodosForm";
+import TodoTab from "./TodoTab";
+
+
 
 const { TabPane } = Tabs;
 const { Content } = Layout;
 
 const TodoList = () => {
     const [refreshing, setRefreshing] = useState(false);
+    const [todos, setTodos] = useState([]);
 
     const handleFormSubmit = async (todo : Todo) => {
         await createTodo(todo);
@@ -22,7 +26,15 @@ const TodoList = () => {
         setRefreshing(false);
     }, [refreshing]);
 
+    const refresh = async () => {
+        await loadTodos()
+        .then(json => {
+            setTodos(json);
+        })
+    }
+
     useEffect(() => {
+        refresh();
 
     }, [onRefresh])
 
@@ -32,15 +44,12 @@ const TodoList = () => {
             <div className="todolist">
                 <Row>
                     <Col span={15} offset={5}>
-                        <h1>Todo List</h1>
+                        <h1>Todo Lista</h1>
                         <TodosForm onFormSubmit={handleFormSubmit} />
                         <br/>
                         <Tabs defaultActiveKey="all">
-                            <TabPane tab="All" key="all">
-                            </TabPane>
-                            <TabPane tab="In Progress" key="active">
-                            </TabPane>
-                            <TabPane tab="Completed" key="complete">
+                            <TabPane tab="Alla" key="all">
+                                <TodoTab todos={todos} />
                             </TabPane>
                         </Tabs>  
                     </Col>
