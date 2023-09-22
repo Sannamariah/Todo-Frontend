@@ -5,7 +5,7 @@ import { TodosTabProps } from "./models/TodosTabProps";
 
 
 
-const TodosTab = ({todos, onTodoToggle}: TodosTabProps) => {
+const TodosTab = ({todos, onTodoToggle, onTodoRemoval}: TodosTabProps) => {
     return(
         <>
         <List
@@ -15,6 +15,7 @@ const TodosTab = ({todos, onTodoToggle}: TodosTabProps) => {
                 return <TodoItem
                 todo={todo}
                 onTodoToggle={onTodoToggle}
+                onTodoRemoval={onTodoRemoval}
                 />
             }}
          />

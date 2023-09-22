@@ -3,7 +3,7 @@ import { Tooltip, Tag, List, Button, Popconfirm, Switch, } from 'antd';
 import { CloseOutlined, CheckOutlined } from '@ant-design/icons';
 import { TodoProps } from './models/TodoProps';
 
-const Todo = ({todo, onTodoToggle}: TodoProps) => {
+const Todo = ({todo, onTodoToggle, onTodoRemoval}: TodoProps) => {
     return (
         <List.Item
             actions={[
@@ -15,7 +15,16 @@ const Todo = ({todo, onTodoToggle}: TodoProps) => {
                             onChange={() => onTodoToggle(todo)}
                             defaultChecked={todo.completed}
                         />
-                </Tooltip>
+                </Tooltip>,
+                <Popconfirm
+                title={'Vill du radera din todo ?'}
+                onConfirm={() => {
+                    onTodoRemoval(todo);
+                }}>
+                    <Button className='remove-todo-btn' type='primary' danger>
+                        X
+                    </Button>
+                </Popconfirm>
             ]}
         className="list-item"
         key={todo.id}
