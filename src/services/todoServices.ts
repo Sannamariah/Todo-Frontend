@@ -12,3 +12,10 @@ export const loadTodos = () => {
     return axios.get(baseUrl)
     .then(response => response.data);
 }
+export const updateTodo = (todo: { id?: number; title: string; completed: boolean; }) => {
+    return axios.put(`${baseUrl}/${todo.id}`, {
+        id: todo.id,
+        title: todo.title,
+        completed: todo.completed
+    }).then(response => response.data);
+}

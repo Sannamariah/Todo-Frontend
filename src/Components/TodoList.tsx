@@ -1,7 +1,7 @@
+import React, { useState, useEffect, useCallback} from "react";
 import { Col, Layout, message, Row, Tabs } from "antd";
-import { createTodo, loadTodos } from '../services/todoServices';
+import { createTodo, loadTodos, updateTodo } from '../services/todoServices';
 import { Todo } from "./models/Todo";
-import { useCallback, useEffect, useState } from "react";
 import TodosForm from "./TodosForm";
 import TodoTab from "./TodoTab";
 
@@ -17,12 +17,18 @@ const TodoList = () => {
     const handleFormSubmit = async (todo : Todo) => {
         await createTodo(todo);
         onRefresh();
-        message.success("Your Todo has been added!");
+        message.success("Din todo är nu tillagd");
+    }
+    const handleToggleTodoStatus = async (todo : Todo) => {
+        todo.completed = !todo.completed;
+        await updateTodo(todo);
+        onRefresh();
+        message.info('Uppdaterad!');
     }
     
     const onRefresh = useCallback( async () => {
         setRefreshing(true);
-
+        await loadTodos()
         setRefreshing(false);
     }, [refreshing]);
 
@@ -49,7 +55,7 @@ const TodoList = () => {
                         <br/>
                         <Tabs defaultActiveKey="all">
                             <TabPane tab="Alla" key="all">
-                                <TodoTab todos={todos} />
+                                <TodoTab todos={todos} onTodoToggle={handleToggleTodoStatus}/>
                             </TabPane>
                         </Tabs>  
                     </Col>
