@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback} from "react";
 import { Col, Layout, message, Row, Tabs } from "antd";
-import { createTodo, loadTodos, updateTodo } from '../services/todoServices';
+import { createTodo, loadTodos, updateTodo, deleteTodo } from '../services/todoServices';
 import { Todo } from "./models/Todo";
 import TodosForm from "./TodosForm";
 import TodoTab from "./TodoTab";
@@ -23,7 +23,14 @@ const TodoList = () => {
         todo.completed = !todo.completed;
         await updateTodo(todo);
         onRefresh();
-        message.info('Uppdaterad!');
+        message.info('Din todo är nu ppdaterad!');
+    }
+    const handleRemoveTodo = async (todo: Todo) => {
+       if (typeof todo.id !== 'undefined' && 'id' in todo) {
+        await deleteTodo(todo.id);
+        onRefresh();
+        message.warning('Din todo är nu raderad');
+       }
     }
     
     const onRefresh = useCallback( async () => {
@@ -41,7 +48,6 @@ const TodoList = () => {
 
     useEffect(() => {
         refresh();
-
     }, [onRefresh])
 
     return (
@@ -55,7 +61,7 @@ const TodoList = () => {
                         <br/>
                         <Tabs defaultActiveKey="all">
                             <TabPane tab="Alla" key="all">
-                                <TodoTab todos={todos} onTodoToggle={handleToggleTodoStatus}/>
+                                <TodoTab todos={todos} onTodoToggle={handleToggleTodoStatus} onTodoRemoval={handleRemoveTodo}/>
                             </TabPane>
                         </Tabs>  
                     </Col>

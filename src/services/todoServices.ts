@@ -19,3 +19,8 @@ export const updateTodo = (todo: { id?: number; title: string; completed: boolea
         completed: todo.completed
     }).then(response => response.data);
 }
+
+export const deleteTodo = (id: number) => {
+    return axios.delete(`${baseUrl}/${id}`)
+    .then(response => response.data);
+}
