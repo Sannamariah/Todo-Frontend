@@ -23,7 +23,7 @@ const TodoList = () => {
         todo.completed = !todo.completed;
         await updateTodo(todo);
         onRefresh();
-        message.info('Din todo är nu ppdaterad!');
+        message.info('Din todo är nu updaterad!');
     }
     const handleRemoveTodo = async (todo: Todo) => {
        if (typeof todo.id !== 'undefined' && 'id' in todo) {
@@ -43,7 +43,7 @@ const TodoList = () => {
         await loadTodos()
         .then(json => {
             setTodos(json);
-        })
+        });
     }
 
     useEffect(() => {
@@ -52,22 +52,22 @@ const TodoList = () => {
 
     return (
         <Layout className="layout">
-        <Content style={{ padding: '10px 60px'}}>
-            <div className="todolist">
-                <Row>
-                    <Col span={15} offset={5}>
-                        <h1>Todo Lista</h1>
-                        <TodosForm onFormSubmit={handleFormSubmit} />
-                        <br/>
-                        <Tabs defaultActiveKey="all">
-                            <TabPane tab="Alla" key="all">
-                                <TodoTab todos={todos} onTodoToggle={handleToggleTodoStatus} onTodoRemoval={handleRemoveTodo}/>
-                            </TabPane>
-                        </Tabs>  
-                    </Col>
-                </Row>
-            </div>
-        </Content>
+            <Content style={{ padding: '10px 60px'}}>
+                <div className="todolist">
+                    <Row>
+                        <Col span={15} offset={5}>
+                            <h1>Todo Lista</h1>
+                            <TodosForm onFormSubmit={handleFormSubmit} />
+                            <br/>
+                            <Tabs defaultActiveKey="all">
+                                <TabPane tab="Alla" key="all">
+                                    <TodoTab todos={todos} onTodoToggle={handleToggleTodoStatus} onTodoRemoval={handleRemoveTodo}/>
+                                </TabPane>
+                            </Tabs>  
+                        </Col>
+                    </Row>
+                </div>
+            </Content>
     </Layout>
     );
 }
