@@ -4,70 +4,90 @@ import { createTodo, loadTodos, updateTodo, deleteTodo } from '../services/todoS
 import { Todo } from "./models/Todo";
 import TodosForm from "./TodosForm";
 import TodoTab from "./TodoTab";
-
-
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 
 const { TabPane } = Tabs;
 const { Content } = Layout;
 
 const TodoList = () => {
-    const [refreshing, setRefreshing] = useState(false);
-    const [todos, setTodos] = useState([]);
+    const [activeTodos, setActiveTodos] = useState([]);
+    const [completedTodos, setCompletedTodos] = useState([]);
 
-    const handleFormSubmit = async (todo : Todo) => {
-        await createTodo(todo);
-        onRefresh();
-        message.success("Din todo är nu tillagd");
+    const queryClient = useQueryClient()
+
+    const { isLoading, isError, data } = useQuery('todos', async () => {
+        const data = await loadTodos();
+        setActiveTodos(data.filter((todo : Todo) => todo.completed === false));
+        setCompletedTodos(data.filter((todo : Todo) => todo.completed === true));
+        return data
+      }) 
+
+    const createMutation = useMutation(createTodo, {
+        onSuccess: () => {
+            queryClient.invalidateQueries('todos');
+            message.success('Added');
+        },
+    })
+
+    const updateMutation = useMutation(createTodo, {
+        onSuccess: () => {
+            queryClient.invalidateQueries('todos')
+            message.info('Updated');
+        },
+    })
+
+    const deleteMutation = useMutation(deleteTodo, {
+        onSuccess: () => {
+        queryClient.invalidateQueries('todos')
+        message.warning('Deleted');
+    },
+    onError: () => {
+        console.log('Error deleteing todo')
+   },
+        
+    })
+
+    const handleFormSubmit = async (todo: Todo) => {
+        createMutation.mutate(todo);
     }
-    const handleToggleTodoStatus = async (todo : Todo) => {
+
+    const handleToggleTodoStatus = async (todo: Todo) => {
         todo.completed = !todo.completed;
-        await updateTodo(todo);
-        onRefresh();
-        message.info('Din todo är nu ppdaterad!');
+        updateMutation.mutate(todo);
     }
+
     const handleRemoveTodo = async (todo: Todo) => {
-       if (typeof todo.id !== 'undefined' && 'id' in todo) {
-        await deleteTodo(todo.id);
-        onRefresh();
-        message.warning('Din todo är nu raderad');
-       }
+        if (typeof todo.id !== 'undefined' && 'id' in todo) {
+            deleteMutation.mutate(todo.id);
+        }
     }
-    
-    const onRefresh = useCallback( async () => {
-        setRefreshing(true);
-        await loadTodos()
-        setRefreshing(false);
-    }, [refreshing]);
-
-    const refresh = async () => {
-        await loadTodos()
-        .then(json => {
-            setTodos(json);
-        })
-    }
-
-    useEffect(() => {
-        refresh();
-    }, [onRefresh])
 
     return (
         <Layout className="layout">
-        <Content style={{ padding: '10px 60px'}}>
-            <div className="todolist">
-                <Row>
-                    <Col span={15} offset={5}>
-                        <h1>Todo Lista</h1>
-                        <TodosForm onFormSubmit={handleFormSubmit} />
-                        <br/>
-                        <Tabs defaultActiveKey="all">
-                            <TabPane tab="Alla" key="all">
-                                <TodoTab todos={todos} onTodoToggle={handleToggleTodoStatus} onTodoRemoval={handleRemoveTodo}/>
-                            </TabPane>
-                        </Tabs>  
-                    </Col>
-                </Row>
-            </div>
-        </Content>
+            <Content style={{ padding: '10px 60px'}}>
+                <div className="todolist">
+                    <Row>
+                        <Col span={15} offset={5}>
+                            <h1>Todo Lista</h1>
+                            <TodosForm onFormSubmit={handleFormSubmit} />
+                            <br/>
+                            {isLoading && <div>Loading todos from the server...</div>}
+                            {isError && <div>Something went wrong</div>}
+                            <Tabs defaultActiveKey="all">
+                                <TabPane tab="Alla" key="all">
+                                    <TodoTab todos={data} onTodoToggle={handleToggleTodoStatus} onTodoRemoval={handleRemoveTodo}/>
+                                </TabPane>
+                                <TabPane tab="In Progress" key="active">
+                                    <TodoTab todos={activeTodos} onTodoToggle={handleToggleTodoStatus} onTodoRemoval={handleRemoveTodo} />
+                                </TabPane>
+                                <TabPane tab="Completed" key="complete">
+                                    <TodoTab todos={completedTodos} onTodoToggle={handleToggleTodoStatus} onTodoRemoval={handleRemoveTodo} />
+                                </TabPane>
+                            </Tabs>  
+                        </Col>
+                    </Row>
+                </div>
+            </Content>
     </Layout>
     );
 }

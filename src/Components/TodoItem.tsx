@@ -2,6 +2,7 @@ import React from 'react';
 import { Tooltip, Tag, List, Button, Popconfirm, Switch, } from 'antd';
 import { CloseOutlined, CheckOutlined } from '@ant-design/icons';
 import { TodoProps } from './models/TodoProps';
+import TodoEdit from './TodoEdit';
 
 const Todo = ({todo, onTodoToggle, onTodoRemoval}: TodoProps) => {
     return (
@@ -16,6 +17,7 @@ const Todo = ({todo, onTodoToggle, onTodoRemoval}: TodoProps) => {
                             defaultChecked={todo.completed}
                         />
                 </Tooltip>,
+                <TodoEdit id={todo.id} title={todo.title} completed={todo.completed} />,
                 <Popconfirm
                 title={'Vill du radera din todo ?'}
                 onConfirm={() => {
