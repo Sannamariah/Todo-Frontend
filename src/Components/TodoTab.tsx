@@ -4,7 +4,6 @@ import { TodosTabProps } from "./models/TodosTabProps";
 
 
 
-
 const TodosTab = ({todos, onTodoToggle, onTodoRemoval}: TodosTabProps) => {
     return(
         <>
@@ -17,6 +16,10 @@ const TodosTab = ({todos, onTodoToggle, onTodoRemoval}: TodosTabProps) => {
                 onTodoToggle={onTodoToggle}
                 onTodoRemoval={onTodoRemoval}
                 />
+            }}
+            pagination={{
+                position: 'bottom',
+                pageSize: 5,
             }}
          />
         </>

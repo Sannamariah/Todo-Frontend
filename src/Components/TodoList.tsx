@@ -63,24 +63,24 @@ const TodoList = () => {
     }
 
     return (
-        <Layout className="layout">
-            <Content style={{ padding: '10px 60px'}}>
-                <div className="todolist">
+        <Layout className="TodoWrapper">
+            <Content style={{ padding: '0px 0px'}}>
+                <div>
                     <Row>
-                        <Col span={15} offset={5}>
+                        <Col span={15} offset={5} >
                             <h1>Todo Lista</h1>
                             <TodosForm onFormSubmit={handleFormSubmit} />
                             <br/>
                             {isLoading && <div>Loading todos from the server...</div>}
                             {isError && <div>Something went wrong</div>}
-                            <Tabs defaultActiveKey="all">
+                            <Tabs defaultActiveKey="all" tabPosition="top">
                                 <TabPane tab="Alla" key="all">
                                     <TodoTab todos={data} onTodoToggle={handleToggleTodoStatus} onTodoRemoval={handleRemoveTodo}/>
                                 </TabPane>
-                                <TabPane tab="In Progress" key="active">
+                                <TabPane tab="Aktiva" key="active">
                                     <TodoTab todos={activeTodos} onTodoToggle={handleToggleTodoStatus} onTodoRemoval={handleRemoveTodo} />
                                 </TabPane>
-                                <TabPane tab="Completed" key="complete">
+                                <TabPane tab="Klara" key="complete">
                                     <TodoTab todos={completedTodos} onTodoToggle={handleToggleTodoStatus} onTodoRemoval={handleRemoveTodo} />
                                 </TabPane>
                             </Tabs>  

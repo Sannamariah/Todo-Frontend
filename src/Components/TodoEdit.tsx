@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { updateTodo } from "../services/todoServices";
-import { Input, Button, message, Modal, Form } from "antd";
+import { Input, message, Modal, Form, Button } from "antd";
 import { EditOutlined } from '@ant-design/icons';
 import { Todo } from "./models/Todo";
 import { useQueryClient } from "react-query";
@@ -36,12 +36,11 @@ const TodoEdit = (todo : Todo) => {
 
     return (
         <>
-        
-        <Button onClick={showModal}>
+        <Button onClick={showModal} className="todo-btn" ghost>
             <EditOutlined />
         </Button>
         <Modal title="Edit" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-            <Form
+         <Form
             form={form}
             initialValues={ todo }>
                 <Form.Item name={'title'}>

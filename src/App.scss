@@ -1,5 +1,9 @@
 .App {
-    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-align: center;
 }
 
 @keyframes gradientAnimation {
@@ -17,7 +21,75 @@
 }
 
 body {
-    background: linear-gradient(62deg, #7a10ac 0%, #f399dc 100%);
-    background-size: 400% 400%;
-    animation: gradientAnimation 15s ease infinite;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background: linear-gradient(62deg, #580a8b 0%, #cf7ef5 100%);
+   background-size: 400% 400%;
+   animation: gradientAnimation 15s ease infinite;
 }
+
+h1 {
+    color: #fff;
+    margin-bottom: 0.5rem;
+    font-size: 2rem;
+  }
+  
+.todo-btn {
+    background: #b458ff;
+    color: #fff;
+    border: none;
+    padding: 1rem;
+    cursor: pointer;
+    box-shadow: 2px 5px 7px black;
+    
+  }
+ 
+  .todo-form {
+    width: 100%;
+    margin-bottom: 5rem;
+  }
+
+  .TodoWrapper {
+    background: #2b1041;
+    margin-top: 3rem;
+    padding: 0rem;
+    border-radius: 10px;
+    padding-right: 14rem;
+    width: 30rem;
+    color: #fff;
+    box-shadow: 10%;
+    box-shadow: 5px 5px 7px black;
+  }
+
+  .Todo {
+    display:inline-table;
+    line-height: 0.25rem;
+    background: #b458ff;
+    color: #fff;
+    padding: 0rem 0.25rem;
+    border-radius: 0rem;
+    margin-bottom: 1.5rem;
+    width: 400px;
+    cursor: pointer;
+    font-size:medium;
+    box-shadow: 2px 2px 7px black;
+  }
+  
+  .todo-input {
+    outline: none;
+    background: none;
+    border: 1px solid #b458ff;
+    border-radius: 0rem;
+    padding: 0.75rem 0.75rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.25rem;
+    width: 20rem;
+    box-shadow: 0px 5px 7px black;
+  }
+  .todo-input::placeholder {
+    color: #ffffff4d;
+  }
+  
+  
+ 
