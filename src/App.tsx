@@ -4,7 +4,7 @@ import TodoList from './Components/TodoList';
 import { QueryClient, QueryClientProvider, useQuery, useQueryClient } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
 function App() {
   return (
