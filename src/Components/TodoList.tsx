@@ -73,7 +73,7 @@ const TodoList = () => {
                             <br/>
                             {isLoading && <div>Loading todos from the server...</div>}
                             {isError && <div>Something went wrong</div>}
-                            <Tabs defaultActiveKey="all" tabPosition="top">
+                            <Tabs className="tabs" defaultActiveKey="all" tabPosition="top">
                                 <TabPane tab="Alla" key="all">
                                     <TodoTab todos={data} onTodoToggle={handleToggleTodoStatus} onTodoRemoval={handleRemoveTodo}/>
                                 </TabPane>
