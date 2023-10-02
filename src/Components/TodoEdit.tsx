@@ -26,7 +26,7 @@ const TodoEdit = (todo : Todo) => {
             queryClient.invalidateQueries('todos');
         }
         else {
-            message.warning('Your Todo has not been updated.');
+            message.warning('Din todo har inte uppdaterats!');
         }
     };
 

@@ -8,7 +8,7 @@ const TodosTab = ({todos, onTodoToggle, onTodoRemoval}: TodosTabProps) => {
     return(
         <>
         <List
-            locale={{emptyText:"Du har inga mer uppgifter att göra.",}}
+            locale={{ emptyText:"Du har inga mer uppgifter att göra.", }}
             dataSource={todos}
             renderItem={(todo) => {
                 return <TodoItem

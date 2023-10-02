@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback} from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Col, Layout, message, Row, Tabs } from "antd";
 import { createTodo, loadTodos, updateTodo, deleteTodo } from '../services/todoServices';
 import { Todo } from "./models/Todo";
@@ -29,7 +29,7 @@ const TodoList = () => {
         },
     })
 
-    const updateMutation = useMutation(createTodo, {
+    const updateMutation = useMutation(updateTodo, {
         onSuccess: () => {
             queryClient.invalidateQueries('todos')
             message.info('Updated');
@@ -64,7 +64,7 @@ const TodoList = () => {
 
     return (
         <Layout className="TodoWrapper">
-            <Content style={{ padding: '0px 0px'}}>
+            <Content style={{ padding: '8px 0px'}}>
                 <div>
                     <Row>
                         <Col span={15} offset={5} >
