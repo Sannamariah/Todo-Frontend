@@ -22,16 +22,17 @@ const TodosForm: React.FC<TodosFormsProps> = (props) => {
             onFinish={onFinish}
             layout="horizontal"
             className='todo-input'>
-                <Row gutter={0}>
-                    <Col xs={24} sm={24} md={17} lg={19} xl={20}>
+                <Row>
+                    <Col flex="auto">
                         <Form.Item
+                        className='add-ruta'
                         name={'title'}
                         rules={[{ required: true, message: 'Lägg till text'}]}>
                             <Input placeholder="Vad har du att göra idag?" />
                         </Form.Item>    
                         </Col>  
-                        <Col xs={24} sm={24} md={7} lg={5} xl={4}>
-                        <button type="submit" className="todo-btn" > 
+                        <Col flex="100px">
+                        <button type="submit" className="add-btn" > 
                                  Lägg till       
                             </button>
                         </Col>  

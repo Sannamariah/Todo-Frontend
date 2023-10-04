@@ -25,24 +25,24 @@ const TodoList = () => {
     const createMutation = useMutation(createTodo, {
         onSuccess: () => {
             queryClient.invalidateQueries('todos');
-            message.success('Added');
+            message.success('Tillagd');
         },
     })
 
     const updateMutation = useMutation(updateTodo, {
         onSuccess: () => {
             queryClient.invalidateQueries('todos')
-            message.info('Updated');
+            message.info('Uppdaterad');
         },
     })
 
     const deleteMutation = useMutation(deleteTodo, {
         onSuccess: () => {
         queryClient.invalidateQueries('todos')
-        message.warning('Deleted');
+        message.warning('Raderad');
     },
     onError: () => {
-        console.log('Error deleteing todo')
+        console.log('Error din todo vart inte raderad')
    },
         
     })
