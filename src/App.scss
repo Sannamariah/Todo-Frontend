@@ -20,6 +20,8 @@
     }
 }
 
+
+
 body {
    display: flex;
    justify-content: center;
@@ -36,7 +38,7 @@ h1 {
   
   .tabs {
     color: #fff;
-    text-shadow: 2px 2px 2px rgb(16, 226, 79);
+    text-shadow: 2px 2px 2px rgb(16, 97, 129);
   }
 
 .remove-todo-btn {
@@ -71,10 +73,9 @@ h1 {
 
   .TodoWrapper {
     background: #0a4347;
-    margin-top: 3rem;
-    padding: 0rem;
+    margin: 80px 150px 0px 200px;
+    padding: 4px 230px 100px 0rem;
     border-radius: 10px;
-    padding-right: 14rem;
     width: 30rem;
     color: #fff;
     box-shadow: 10%;
